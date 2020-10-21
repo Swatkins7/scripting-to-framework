@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3SnVPO2wRhcCObbuByHIg9bVa6cslM+va9LLYTf85oqYp/i1ppwI6OWfQdlpZKCNg82wxMHourrQPa7mTFnEvw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\s_k_w\\projects\\tau\\scripting-to-framework\\Framework\\Framework.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\s_k_w\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\s_k_w\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
