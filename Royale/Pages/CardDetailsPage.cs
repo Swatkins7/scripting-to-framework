@@ -1,4 +1,5 @@
-using System;
+using System.Linq;
+using Framework.Models;
 using OpenQA.Selenium;
 
 namespace Royale.Pages
@@ -6,25 +7,20 @@ namespace Royale.Pages
     public class CardDetailsPage : PageBase
     {
         public readonly CardDetailsPageMap Map;
-
         public CardDetailsPage(IWebDriver driver) : base(driver)
         {
             Map = new CardDetailsPageMap(driver);
         }
-
         public (string Category, string Arena) GetCardCategory()
         {
             var categories = Map.CardCategory.Text.Split(',');
             return (categories[0].Trim(), categories[1].Trim());
         }
-
         public string GetCardRarity()
         {
-            var rarity =Map.CardRarityInfo.Text.Split(new [] {Environment.NewLine}, StringSplitOptions.None);
-            return rarity[1];
+            return Map.CardRarityInfo.Text.Split('\n').Last();
         }
     }
-
     public class CardDetailsPageMap
     {
         IWebDriver _driver;
