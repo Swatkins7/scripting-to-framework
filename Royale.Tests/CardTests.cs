@@ -3,6 +3,8 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Royale.Pages;
+using Framework.Models;
+using Framework.Services;
 
 namespace Royale.Tests
 {
@@ -24,27 +26,25 @@ namespace Royale.Tests
             driver.Quit();
         }
 
-        [Test]
-        public void Ice_Spirit_is_on_Cards_Page()
-        {       
-            var cardsPage = new CardsPage(driver);
-            var iceSpirit = cardsPage.GoTo().GetCardByName("Ice Spirit");
-            Assert.That(iceSpirit.Displayed);
-        }
-
-        [Test]
-        public void Ice_Spirit_headers_are_correct_on_Card_Details_Page()
+        static string[] cardNames = {"Ice Spirit", "Mirror"};
+        [Test, Category("cards")]
+        [TestCaseSource("cardNames")]
+        // [Parallelizable(ParallelScope.Children)]
+        public void Card_headers_are_correct_on_Card_Details_Page(string cardName)
         {
-            new CardsPage(driver).GoTo().GetCardByName("Ice Spirit").Click();
-            var cardDetailsPage = new CardDetailsPage(driver);
-            var (category, arena) = cardDetailsPage.GetCardCategory();
-            var cardName = cardDetailsPage.Map.CardName.Text;
-            var cardRarity = cardDetailsPage.GetCardRarity();
+            new CardsPage(driver).GoTo().GetCardByName(cardName).Click();
+            var cardDetails = new CardDetailsPage(driver);
 
-            Assert.AreEqual("Ice Spirit", cardName);
-            Assert.AreEqual("Troop", category);
-            Assert.AreEqual("Arena 8", arena);
-            Assert.AreEqual("Common", cardRarity);
+            var cardOnPage = cardDetails.GetBaseCard();
+            var card = new InMemoryCardService().GetCardByName(cardName);
+
+            Assert.AreEqual(card.Name, cardOnPage.Name);
+            Assert.AreEqual(card.Type, cardOnPage.Type);
+            Assert.AreEqual(card.Arena, cardOnPage.Arena);
+            if(cardName != "Mirror")
+            {
+                Assert.AreEqual(card.Rarity, card.Rarity);
+            }
         }
     }
 }
