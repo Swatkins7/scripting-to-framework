@@ -1,6 +1,5 @@
-using System;
+using Framework.Selenium;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace Royale.Pages
 {
@@ -8,9 +7,9 @@ namespace Royale.Pages
     {
         public readonly CardsPageMap Map;
      
-        public CardsPage(IWebDriver driver) : base(driver)
+        public CardsPage()
         {
-            Map = new CardsPageMap(driver);   
+            Map = new CardsPageMap();   
         }
 
         public CardsPage GoTo()
@@ -31,17 +30,6 @@ namespace Royale.Pages
 
     public class CardsPageMap
     {
-        IWebDriver _driver;
-
-        public readonly WebDriverWait wait;
-
-        public CardsPageMap(IWebDriver driver)
-        {
-            _driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-        }
-        public IWebElement Card(string name) => wait.Until(drvr => drvr.FindElement(By.CssSelector($"a[href*='{name}']")));
-        
+        public IWebElement Card(string name) => Driver.FindElement(By.CssSelector($"a[href*='{name}']"));
     }
-
 }
