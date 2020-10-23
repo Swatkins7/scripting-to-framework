@@ -44,5 +44,10 @@ namespace Framework.Selenium
             //return Current.FindElements(by);
             return _wait.Until(current => current.FindElements(by));
         }
+
+        public static void Quit()
+        {
+            Current.Quit();
+        }
     }
 }

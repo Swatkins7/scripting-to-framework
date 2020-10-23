@@ -21,7 +21,7 @@ namespace Tests
         [TearDown]
         public void AfterEach()
         {
-            Driver.Current.Close();
+            Driver.Quit();
         }
 
         [Test]
