@@ -1,41 +1,44 @@
 using System.IO;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using Royale.Pages;
 using Framework.Models;
 using Framework.Services;
+using Framework.Selenium;
+using Royale.Pages;
 
-namespace Royale.Tests
+namespace Tests
 {
     public class CardTests
     {
-        IWebDriver driver;
-
         [SetUp]
         public void BeforeEach()
-        {        
-            driver = new ChromeDriver(Path.GetFullPath("../../../../" + "_drivers"));
-            driver.Manage().Window.Maximize();
-            driver.Url = "https://statsroyale.com";
+        {
+            Driver.Init();
+            Pages.Init();
+            Driver.Current.Manage().Window.Maximize();
+            Driver.Goto("https://statsroyale.com");
         }
 
         [TearDown]
         public void AfterEach()
         {
-            driver.Quit();
+            Driver.Current.Close();
+        }
+
+        [Test]
+        public void Ice_Spirit_is_on_Cards_Page()
+        {
+            var iceSpirit = Pages.Cards.GoTo().GetCardByName("Ice Spirit");
+            Assert.That(iceSpirit.Displayed);
         }
 
         static string[] cardNames = {"Ice Spirit", "Mirror"};
         [Test, Category("cards")]
         [TestCaseSource("cardNames")]
-        // [Parallelizable(ParallelScope.Children)]
+        [Parallelizable(ParallelScope.Children)]
         public void Card_headers_are_correct_on_Card_Details_Page(string cardName)
         {
-            new CardsPage(driver).GoTo().GetCardByName(cardName).Click();
-            var cardDetails = new CardDetailsPage(driver);
-
-            var cardOnPage = cardDetails.GetBaseCard();
+            Pages.Cards.GoTo().GetCardByName(cardName).Click();
+            var cardOnPage = Pages.CardDetails.GetBaseCard();
             var card = new InMemoryCardService().GetCardByName(cardName);
 
             Assert.AreEqual(card.Name, cardOnPage.Name);
