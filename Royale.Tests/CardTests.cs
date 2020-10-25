@@ -1,9 +1,9 @@
-using System.IO;
 using NUnit.Framework;
 using Framework.Models;
 using Framework.Services;
 using Framework.Selenium;
 using Royale.Pages;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -24,27 +24,32 @@ namespace Tests
             Driver.Quit();
         }
 
-        [Test]
-        public void Ice_Spirit_is_on_Cards_Page()
+        static IList<Card> apiCards = new ApiCardService().GetAllCards();
+
+        [Test, Category("cards")]
+        [TestCaseSource("apiCards")]
+        [Parallelizable(ParallelScope.Children)]
+        public void Card_is_on_Cards_Page(Card card)
         {
-            var iceSpirit = Pages.Cards.GoTo().GetCardByName("Ice Spirit");
-            Assert.That(iceSpirit.Displayed);
+            var cardOnPage = Pages.Cards.GoTo().GetCardByName(card.Name);
+            Assert.That(cardOnPage.Displayed);
         }
 
-        static string[] cardNames = {"Ice Spirit", "Mirror"};
         [Test, Category("cards")]
-        [TestCaseSource("cardNames")]
+        [TestCaseSource("apiCards")]
         [Parallelizable(ParallelScope.Children)]
-        public void Card_headers_are_correct_on_Card_Details_Page(string cardName)
+        public void Card_headers_are_correct_on_Card_Details_Page(Card card)
         {
-            Pages.Cards.GoTo().GetCardByName(cardName).Click();
+            Pages.Cards.GoTo().GetCardByName(card.Name).Click();
             var cardOnPage = Pages.CardDetails.GetBaseCard();
-            var card = new InMemoryCardService().GetCardByName(cardName);
+
+            if(cardOnPage.Type == "troop")
+                cardOnPage.Type = "character";
 
             Assert.AreEqual(card.Name, cardOnPage.Name);
-            Assert.AreEqual(card.Type, cardOnPage.Type);
+            Assert.That(card.Type.Contains(cardOnPage.Type));
             Assert.AreEqual(card.Arena, cardOnPage.Arena);
-            if(cardName != "Mirror")
+            if(card.Name != "Mirror")
             {
                 Assert.AreEqual(card.Rarity, card.Rarity);
             }
