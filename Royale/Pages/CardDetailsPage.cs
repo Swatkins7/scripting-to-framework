@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Framework.Models;
 using Framework.Selenium;
@@ -12,17 +13,27 @@ namespace Royale.Pages
         {
             Map = new CardDetailsPageMap();
         }
-        public (string Category, string Arena) GetCardCategory()
+        public (string Category, int Arena) GetCardCategory()
         {
             var categories = Map.CardCategory.Text.Split(',');
-            return (categories[0].Trim(), categories[1].Trim());
+            var type = categories[0].Trim().ToLower();
+            var arena = categories[1].Trim().Split(" ").Last();
+            
+            int intArena;
+            if(int.TryParse(arena, out intArena))
+            {
+                return (type, intArena);
+            }
+
+            return (type, 0);  //Arena is "Training camp" (example - Fireball)
         }
         
         public Card GetBaseCard()
         {
             var (category, arena) = GetCardCategory();
 
-            //Mirror card doesn't have a rarity element
+            //Mirror card doesn't have a displayed rarity element
+            //Now that we've added the API, I'm not sure what other cards are missing displayed info
             var rarity = "no rarity";
             if(Map.CardName.Text != "Mirror")
             {
