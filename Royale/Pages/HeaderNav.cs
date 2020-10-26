@@ -17,10 +17,17 @@ namespace Royale.Pages
         {
             Map.CardsTabLink.Click();
         }
+
+        public void GoToDeckBuilderPage()
+        {
+            Map.DeckBuilderTabLink.Click();
+        }
     }
 
     public class HeaderNavMap
     {
         public IWebElement CardsTabLink => Driver.FindElement(By.CssSelector("a[href='/cards']"));
+
+        public IWebElement DeckBuilderTabLink => Driver.FindElement(By.CssSelector("a[href*='/deckbuilder']"));
     }
 }
