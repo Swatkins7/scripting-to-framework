@@ -4,14 +4,22 @@ using Framework.Services;
 using Framework.Selenium;
 using Royale.Pages;
 using System.Collections.Generic;
+using Framework;
 
 namespace Tests
 {
     public class CardTests
     {
+        [OneTimeSetUp]
+        public void BeforeAll()
+        {
+            FW.CreateTestResultsDirectory();
+        }
+
         [SetUp]
         public void BeforeEach()
         {
+            FW.SetLogger();
             Driver.Init();
             Pages.Init();
             Driver.Current.Manage().Window.Maximize();

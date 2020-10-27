@@ -31,12 +31,25 @@ namespace Framework
 
         public static void SetLogger()
         {
-            var testResultsDirectory = WORKSPACE_DIRECTORY + "TestResults";
-            var testName = TestContext.CurrentContext.Test.Name;
-            var fullPath = $"{testResultsDirectory}/{testName}";
-            
-            CurrentTestDirectory = Directory.CreateDirectory(fullPath);
-            _logger = new Logger(testName, CurrentTestDirectory.FullName + "/log.txt");
+            lock(_setLoggerLock)
+            {
+                var testResultsDirectory = WORKSPACE_DIRECTORY + "TestResults";
+                var testName = TestContext.CurrentContext.Test.Name;
+                var fullPath = $"{testResultsDirectory}/{testName}";
+
+                if(Directory.Exists(fullPath))
+                {
+                    CurrentTestDirectory = Directory.CreateDirectory(fullPath + TestContext.CurrentContext.Test.ID);
+                }
+                else
+                {
+                    CurrentTestDirectory = Directory.CreateDirectory(fullPath);
+                }
+
+                _logger = new Logger(testName, CurrentTestDirectory.FullName + "/log.txt");
+            }
         }
+
+        private static object _setLoggerLock = new object();
     }
 }

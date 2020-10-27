@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 
 namespace Framework.Selenium
 {
@@ -18,7 +16,8 @@ namespace Framework.Selenium
 
         public static void Init()
         {
-            _driver = new ChromeDriver(Path.GetFullPath("../../../../" + "_drivers"));
+            FW.Log.Info("Chrome driver");
+            _driver = new ChromeDriver(Path.GetFullPath(@"../../../../" + "_drivers"));
             Wait = new Wait(10);
         }
         public static IWebDriver Current => _driver ?? throw new NullReferenceException("_driver is null.");
@@ -31,7 +30,7 @@ namespace Framework.Selenium
                 url = $"http://{url}";
             }
 
-            Debug.WriteLine(url);
+            FW.Log.Info(url);
             Current.Navigate().GoToUrl(url);
         }
 
@@ -48,6 +47,7 @@ namespace Framework.Selenium
 
         public static void Quit()
         {
+            FW.Log.Info("Close Browser");
             Current.Quit();
         }
     }
