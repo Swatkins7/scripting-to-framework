@@ -34,15 +34,20 @@ namespace Framework.Selenium
             Current.Navigate().GoToUrl(url);
         }
 
-        public static IWebElement FindElement(By by)
+        public static Element FindElement(By by, string elementName)
         {
-            return Wait.Until(crnt => Current.FindElement(by));
+            return new Element(Wait.Until(crnt => Current.FindElement(by)), elementName)
+            {
+                FoundBy = by
+            };
         }
 
-        public static IList<IWebElement> FindElements(By by)
+        public static Elements FindElements(By by)
         {
-            //reverted back to match the instruction video
-            return Current.FindElements(by);
+            return new Elements(Current.FindElements(by))
+            {
+                FoundBy = by
+            };
         }
 
         public static void Quit()
