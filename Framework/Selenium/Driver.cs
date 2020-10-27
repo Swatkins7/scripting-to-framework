@@ -13,14 +13,16 @@ namespace Framework.Selenium
         [ThreadStatic]
         private static IWebDriver _driver;
 
-        private static WebDriverWait _wait;
+        [ThreadStatic]
+        public static Wait Wait;
 
         public static void Init()
         {
             _driver = new ChromeDriver(Path.GetFullPath("../../../../" + "_drivers"));
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            Wait = new Wait(10);
         }
         public static IWebDriver Current => _driver ?? throw new NullReferenceException("_driver is null.");
+        public static string Title => Current.Title;
 
         public static void Goto(string url)
         {
@@ -35,14 +37,13 @@ namespace Framework.Selenium
 
         public static IWebElement FindElement(By by)
         {
-            //return Current.FindElement(by);
-            return _wait.Until(current => current.FindElement(by));
+            return Wait.Until(crnt => Current.FindElement(by));
         }
 
         public static IList<IWebElement> FindElements(By by)
         {
-            //return Current.FindElements(by);
-            return _wait.Until(current => current.FindElements(by));
+            //reverted back to match the instruction video
+            return Current.FindElements(by);
         }
 
         public static void Quit()
