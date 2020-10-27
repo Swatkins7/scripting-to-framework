@@ -45,12 +45,12 @@ namespace Royale.Pages
 
     public class CopyDeckPageMap
     {
-        public IWebElement YesButton => Driver.FindElement(By.Id("button-open"));
-        public IWebElement CopiedMessage => Driver.FindElement(By.CssSelector(".notes.active"));
-        public IWebElement NoButton => Driver.FindElement(By.Id("not-installed"));
-        public IWebElement AppStoreButton => Driver.FindElement(By.XPath("//a[text()='App Store']"));
-        public IWebElement GooglePlayButton => Driver.FindElement(By.XPath("//a[text()='Google Play']"));
-        public IWebElement AcceptCookiesButton => Driver.FindElement(By.CssSelector("a.cc-btn.cc-dismiss"));
-        public IWebElement OtherStoresButton => Driver.FindElement(By.Id("other-stores"));
+        public Element YesButton => Driver.FindElement(By.Id("button-open"), "Yes Button");
+        public Element CopiedMessage => Driver.FindElement(By.CssSelector(".notes.active"), "Copied Message");
+        public Element NoButton => Driver.FindElement(By.Id("not-installed"), "No Button");
+        public Element AppStoreButton => Driver.FindElement(By.XPath("//a[text()='App Store']"), "App Store Button");
+        public Element GooglePlayButton => Driver.FindElement(By.XPath("//a[text()='Google Play']"), "Google Play Button");
+        public Element AcceptCookiesButton => Driver.FindElement(By.CssSelector("a.cc-btn.cc-dismiss"), "Accept Cookies Button");
+        public Element OtherStoresButton => Driver.FindElement(By.Id("other-stores"), "Other Stores Button");
     }
 }
