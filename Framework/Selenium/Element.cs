@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Drawing;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 
 namespace Framework.Selenium
 {
@@ -69,6 +70,13 @@ namespace Framework.Selenium
         public void Submit()
         {
             Current.Submit();
+        }
+
+        public void Hover()
+        {
+            FW.Log.Step($"Hover {Name}");
+            var action = new Actions(Driver.Current);
+            action.MoveToElement(Current).Perform();
         }
     }
 }
