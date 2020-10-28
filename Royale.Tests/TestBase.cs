@@ -21,7 +21,6 @@ namespace Tests
             FW.SetLogger();
             Driver.Init();
             Pages.Init();
-            Driver.Current.Manage().Window.Maximize();
             Driver.Goto(FW.Config.Test.Url);
         }
 
