@@ -1,38 +1,13 @@
 using NUnit.Framework;
 using Framework.Models;
 using Framework.Services;
-using Framework.Selenium;
 using Royale.Pages;
 using System.Collections.Generic;
-using Framework;
 
 namespace Tests
 {
-    public class CardTests
+    public class CardTests : TestBase
     {
-        [OneTimeSetUp]
-        public void BeforeAll()
-        {
-            FW.SetConfig();
-            FW.CreateTestResultsDirectory();
-        }
-
-        [SetUp]
-        public void BeforeEach()
-        {
-            FW.SetLogger();
-            Driver.Init();
-            Pages.Init();
-            Driver.Current.Manage().Window.Maximize();
-            Driver.Goto(FW.Config.Test.Url);
-        }
-
-        [TearDown]
-        public void AfterEach()
-        {
-            Driver.Quit();
-        }
-
         static IList<Card> apiCards = new ApiCardService().GetAllCards();
 
         [Test, Category("cards")]

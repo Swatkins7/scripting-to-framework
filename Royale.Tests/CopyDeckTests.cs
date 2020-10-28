@@ -1,36 +1,12 @@
 using System.Text.RegularExpressions;
-using Framework;
 using Framework.Selenium;
 using NUnit.Framework;
 using Royale.Pages;
 
 namespace Tests
 {
-    public class CopyDeckTests
+    public class CopyDeckTests : TestBase
     {
-        [OneTimeSetUp]
-        public void BeforeAll()
-        {
-            FW.SetConfig();
-            FW.CreateTestResultsDirectory();
-        }
-
-        [SetUp]
-        public void BeforeEach()
-        {
-            FW.SetLogger();
-            Driver.Init();
-            Pages.Init();
-            Driver.Current.Manage().Window.Maximize();
-            Driver.Goto(FW.Config.Test.Url);
-        }
-
-        [TearDown]
-        public void AfterEach()
-        {
-            Driver.Quit();
-        }
-
         [Test, Category("copydeck")]
         public void User_can_copy_a_deck()
         {
@@ -58,6 +34,9 @@ namespace Tests
             Pages.DeckBuilder.GoTo().AddCardsManually();
             Pages.DeckBuilder.CopySuggestedDeck();
             Pages.CopyDeck.No().OpenGooglePlay();
+
+            var title = Regex.Replace(Driver.Title, @"\u200E", string.Empty); //Left-to-right mark
+            title = Regex.Replace(title, @"\u00A0", " "); //non-breaking space
             //This assertion will fail, because the button redirects to the App Store
             Assert.AreEqual("Clash Royale - Apps on Google Play", Driver.Title);
         }
