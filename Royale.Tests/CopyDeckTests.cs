@@ -38,7 +38,7 @@ namespace Tests
             var title = Regex.Replace(Driver.Title, @"\u200E", string.Empty); //Left-to-right mark
             title = Regex.Replace(title, @"\u00A0", " "); //non-breaking space
             //This assertion will fail, because the button redirects to the App Store
-            Assert.AreEqual("Clash Royale - Apps on Google Play", Driver.Title);
+            Assert.AreEqual("Clash Royale - Apps on Google Play", title);
         }
     }
 }
