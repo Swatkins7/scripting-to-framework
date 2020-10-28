@@ -13,6 +13,7 @@ namespace Tests
         [OneTimeSetUp]
         public void BeforeAll()
         {
+            FW.SetConfig();
             FW.CreateTestResultsDirectory();
         }
 
@@ -23,7 +24,7 @@ namespace Tests
             Driver.Init();
             Pages.Init();
             Driver.Current.Manage().Window.Maximize();
-            Driver.Goto("https://statsroyale.com");
+            Driver.Goto(FW.Config.Test.Url);
         }
 
         [TearDown]
