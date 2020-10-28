@@ -27,8 +27,6 @@ namespace Framework.Selenium
             return _wait.Until(condition);
         }
 
-        //This one is needed to match my previous waits
-        //Otherwise, tests are too flaky with the video loading
         public IWebElement Until(Func<IWebDriver, IWebElement> condition)
         {
             return _wait.Until(condition);
