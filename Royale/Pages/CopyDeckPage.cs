@@ -22,14 +22,14 @@ namespace Royale.Pages
         {
             Map.NoButton.Click();
             AcceptCookies();
-            Driver.Wait.Until(drvr => Map.OtherStoresButton.Displayed);
+            Driver.Wait.Until(WaitConditions.ElementDisplayed(Map.OtherStoresButton));
             return this;
         }
 
         public void AcceptCookies()
         {
             Map.AcceptCookiesButton.Click();
-            Driver.Wait.Until(drvr => !Map.AcceptCookiesButton.Displayed);
+            Driver.Wait.Until(WaitConditions.ElementNotDisplayed(Map.AcceptCookiesButton));
         }
 
         public void OpenAppStore()

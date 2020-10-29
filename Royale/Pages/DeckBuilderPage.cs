@@ -21,7 +21,10 @@ namespace Royale.Pages
 
         public void AddCardsManually()
         {
-            Map.AddCardsManuallyLink.Click();
+            Driver.Wait.Until(
+                WaitConditions.ElementIsDisplayed(Map.AddCardsManuallyLink))
+                .Click();
+            Driver.Wait.Until(WaitConditions.ElementDisplayed(Map.CopyDeckIcon));
         }
 
         public void CopySuggestedDeck()
