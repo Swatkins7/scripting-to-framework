@@ -47,8 +47,8 @@ The code written here follows the 'From Scripting to Framework with Selenium and
 
 **Description:**\
     At the time of the course recording, the pages didn't have all the ads that exist today.\
-    - see Chapter 5 from 4:15-4:42 for an example of the pages not containing all the ads.\
-    Currently, there are several ads and a video that are on the homepage and several of the card pages.
+    Currently, there are several ads and a video that are on the homepage and several of the card pages.\
+    - see Chapter 5 from 4:15-4:42 for an example of the pages not containing all the ads.
 
 **Issue 4.1:**\
     Element Click Intercepted Exception\
@@ -77,7 +77,7 @@ The code written here follows the 'From Scripting to Framework with Selenium and
 ### 5. HTTP timeout causes tests to fail
 
 **Description:**\
-    Sometimes tests fail with the following error:\
+    Sometimes tests fail with the following error:
 
 > The HTTP request to the remote WebDriver server for URL http://localhost: ... timed out after 60 seconds
 
