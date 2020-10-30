@@ -2,7 +2,7 @@
 
 The code written here follows the 'From Scripting to Framework with Selenium and C#' course on TestAutomationU.com
 
-## Challeges while following the course:
+## Challenges while following the course:
 
 ### 1. Need to install latest Visual Studio Preview
 
