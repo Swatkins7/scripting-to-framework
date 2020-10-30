@@ -33,10 +33,7 @@ namespace Tests
             Assert.AreEqual(card.Name, cardOnPage.Name);
             Assert.That(card.Type.Contains(cardOnPage.Type));
             Assert.AreEqual(card.Arena, cardOnPage.Arena);
-            if(card.Name != "Mirror")
-            {
-                Assert.AreEqual(card.Rarity, card.Rarity);
-            }
+            Assert.AreEqual(card.Rarity, card.Rarity);
         }
     }
 }
