@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Framework.Models
+﻿namespace Framework.Models
 {
     public class MirrorCard : Card
     {
