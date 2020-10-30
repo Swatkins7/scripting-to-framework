@@ -1,5 +1,3 @@
-using OpenQA.Selenium;
-
 namespace Royale.Pages
 {
     public abstract class PageBase
